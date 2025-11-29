@@ -21,7 +21,34 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defconst spacemacs-project-packages
-  '(projectile))
+  '((project :location built-in)
+    projectile))
+
+(defun spacemacs-project/init-project ()
+  (use-package project
+    :init
+    (setq project-list-file (concat spacemacs-cache-directory "projects"))
+    ;; FIXME: only do one of project.el or projectile
+    (spacemacs/set-leader-keys
+      ;; File path
+      ;; TODO: implement with project.el
+      "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
+      "fyD" 'spacemacs/projectile-copy-directory-path
+      "fyL" 'spacemacs/projectile-copy-file-path-with-line
+      "fyY" 'spacemacs/projectile-copy-file-path
+      ;; Project
+      "p!" 'project-shell-command
+      "p&" 'project-async-shell-command
+      "p%" 'project-query-replace-regexp
+      "pb" 'project-switch-to-buffer
+      "pc" 'project-compile
+      "pd" 'project-find-dir
+      "pD" 'project-dired
+      "pf" 'project-find-file
+      "pk" 'project-kill-buffers
+      "pp" 'project-switch-project
+      "pR" 'project-query-replace-regexp
+      "pv" 'project-vc-dir)))
 
 (defun spacemacs-project/init-projectile ()
   (use-package projectile
