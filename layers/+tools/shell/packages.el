@@ -203,6 +203,12 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(shell . t))))
 
+(defun shell/post-init-project ()
+  (spacemacs/set-leader-keys
+    "p'" #'spacemacs/project-shell-pop
+    ;; FIXME: doesn't use shell-default-shell...
+    "p$" #'project-shell))
+
 (defun shell/post-init-projectile ()
   (spacemacs/set-leader-keys
     "p'" #'spacemacs/projectile-shell-pop
