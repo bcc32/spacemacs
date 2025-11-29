@@ -21,6 +21,16 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+(defun spacemacs/project-shell-pop ()
+  "Pop-up a shell buffer at the project root.
+Customize `shell-default-shell' to control what type of shell
+buffer you create. This function will pop-up a full-width buffer
+and move your focus to it; to switch the current buffer view, use
+`project-shell'."
+  (interactive)
+  (let ((default-directory (project-root (project-current t))))
+    (call-interactively 'spacemacs/default-pop-shell)))
+
 (defun spacemacs/projectile-shell-pop ()
   "Pop-up a shell buffer at the project root.
 Customize `shell-default-shell' to control what type of shell
