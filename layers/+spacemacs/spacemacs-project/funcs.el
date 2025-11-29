@@ -20,23 +20,24 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;; TODO: Add a function to generically get the current project's root, and make
+;; it use projectile when configured otherwise project.el.
 
 (defun spacemacs--projectile-directory-path ()
   "Retrieve the directory path relative to project root.
 
-If the buffer is not visiting a file, use the `list-buffers-directory'
-variable as a fallback to display the directory, useful in buffers like the
-ones created by `magit' and `dired'.
+If the buffer is not visiting a file, use the `default-directory'
+variable as a fallback to display the directory.
 
 Returns:
   - A string containing the directory path in case of success.
-  - `nil' in case the current buffer does not have a directory."
-  (when-let* ((directory-name (if-let* ((file-name (buffer-file-name)))
-                                  (file-name-directory file-name)
-                                list-buffers-directory)))
+  - nil in case the current buffer does not have a directory."
+  (let ((directory-name (if-let* ((file-name (buffer-file-name)))
+                            (file-name-directory file-name)
+                          default-directory)))
     (file-relative-name
-      (file-truename directory-name)
-      (projectile-project-root))))
+     (file-truename directory-name)
+     (projectile-project-root))))
 
 (defun spacemacs--projectile-file-path ()
   "Retrieve the file path relative to project root.
