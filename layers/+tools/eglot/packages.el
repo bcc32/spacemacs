@@ -22,8 +22,15 @@
 
 
 (defconst eglot-packages
-  '(eglot
+  '(breadcrumb                          ;FIXME: this should arguably be in the
+                                        ;project layer, or its own layer.
+    eglot
     (flycheck-eglot :requires flycheck)))
+
+(defun eglot/init-breadcrumb ()
+  (use-package breadcrumb
+    :after eglot
+    :config (breadcrumb-mode)))
 
 (defun eglot/init-eglot ()
   (use-package eglot
